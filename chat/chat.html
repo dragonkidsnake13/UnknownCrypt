@@ -3,48 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UnknownCrypt • Secure Chat</title>
+  <title>UnknownCrypt Chat</title>
 
   <link rel="stylesheet" href="chat.css">
-
-  <!-- Smooth font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
   <!-- Top Bar -->
-  <header class="top-bar">
+  <div class="top-bar">
     <div class="logo">🔐 UnknownCrypt</div>
-    <div class="status">● Secure Session</div>
-  </header>
+    <div id="user-label">User</div>
+  </div>
 
-  <!-- Main Chat Container -->
-  <div class="chat-wrapper">
+  <!-- Chat Container -->
+  <div class="chat-container">
 
-    <!-- Chat Header -->
-    <div class="chat-header">
-      <div class="chat-title">Private Chat</div>
-      <div class="chat-subtitle">End-to-end encrypted (coming soon)</div>
-    </div>
-
-    <!-- Messages Area -->
+    <!-- Messages -->
     <div id="chat-box" class="chat-box"></div>
 
-    <!-- Input Area -->
-    <div class="chat-input-area">
-
+    <!-- Input -->
+    <div class="input-area">
       <input 
         type="text" 
         id="message" 
-        placeholder="Type a secure message..."
+        placeholder="Type secure message..." 
         autocomplete="off"
       >
-
-      <button onclick="sendMessage()">
-        Send
-      </button>
-
+      <button onclick="sendMessage()">Send</button>
     </div>
 
   </div>
