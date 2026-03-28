@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #111;
+}
+
+/* Top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+
+.logo {
+  font-weight: 600;
+  color: #00bfa6;
+}
+
+.status {
+  font-size: 14px;
+  color: #00bfa6;
+}
+
+/* Chat wrapper */
+.chat-wrapper {
+  max-width: 700px;
+  margin: 30px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  background: #fafafa;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Chat header */
+.chat-header {
+  padding: 20px;
+  background: linear-gradient(90deg, #00bfa6, #00e5ff);
+  color: white;
+}
+
+.chat-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.chat-subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Messages */
+.chat-box {
+  height: 400px;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Messages styling */
+.chat-box p {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* You messages */
+.chat-box p.me {
+  align-self: flex-end;
+  background: #00bfa6;
+  color: white;
+}
+
+/* Friend messages */
+.chat-box p.other {
+  align-self: flex-start;
+  background: #e6f7f5;
+  color: #111;
+}
+
+/* Input area */
+.chat-input-area {
+  display: flex;
+  border-top: 1px solid #eee;
+  background: white;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.chat-input-area button {
+  padding: 0 20px;
+  border: none;
+  background: #00bfa6;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.chat-input-area button:hover {
+  background: #00a58f;
+}
