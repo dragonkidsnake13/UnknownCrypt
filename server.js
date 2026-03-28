@@ -5,28 +5,26 @@ const WebSocket = require("ws");
 
 const PORT = 3000;
 
-/* -------------------- HTTP SERVER -------------------- */
+/* ---------- HTTP SERVER ---------- */
 const server = http.createServer((req, res) => {
-  // Map URL to file
   let filePath = "." + (req.url === "/" ? "/index.html" : req.url);
 
-  // Get file extension
   const ext = path.extname(filePath);
 
-  // Content type mapping
   const contentTypes = {
     ".html": "text/html",
     ".css": "text/css",
     ".js": "text/javascript",
+    ".json": "application/json",
     ".png": "image/png",
     ".jpg": "image/jpeg"
   };
 
   const contentType = contentTypes[ext] || "text/plain";
 
-  // Read file
   fs.readFile(filePath, (err, content) => {
     if (err) {
+      console.log("File not found:", filePath);
       res.writeHead(404);
       res.end("404 - Not Found");
       return;
@@ -37,14 +35,14 @@ const server = http.createServer((req, res) => {
   });
 });
 
-/* -------------------- WEBSOCKET SERVER -------------------- */
+/* ---------- WEBSOCKET SERVER ---------- */
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", (ws) => {
   console.log("🔗 Client connected");
 
   ws.on("message", (message) => {
-    // Broadcast message to all connected clients
+    // Broadcast message to all clients
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message.toString());
@@ -57,7 +55,9 @@ wss.on("connection", (ws) => {
   });
 });
 
-/* -------------------- START SERVER -------------------- */
-server.listen(PORT, () => {
-  console.log(`🚀 UnknownCrypt running on http://localhost:${PORT}`);
+/* ---------- START SERVER ---------- */
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 UnknownCrypt running on:`);
+  console.log(`👉 http://localhost:${PORT}`);
+  console.log(`👉 http://<your-ip>:${PORT}`);
 });
