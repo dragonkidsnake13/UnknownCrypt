@@ -1,53 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Smooth scroll for nav links
-  document.querySelectorAll("nav a").forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
+  // Smooth scroll (buttery)
+  function smoothScroll(target, duration) {
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
 
-      const targetId = this.getAttribute("href");
-      const targetSection = document.querySelector(targetId);
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
 
-      if (targetSection) {
-        targetSection.scrollIntoView({
-          behavior: "smooth"
-        });
+      const ease = timeElapsed < duration / 2
+        ? 4 * timeElapsed * timeElapsed * timeElapsed / (duration * duration * duration)
+        : 1 - Math.pow(-2 * (timeElapsed / duration - 1), 3) / 2;
+
+      window.scrollTo(0, startPosition + distance * ease);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
       }
+    }
+
+    requestAnimationFrame(animation);
+  }
+
+  document.querySelectorAll("nav a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      if (target) smoothScroll(target, 900);
     });
   });
 
-  // Hero buttons
-  const primaryBtn = document.querySelector(".primary-btn");
-  const secondaryBtn = document.querySelector(".secondary-btn");
+  // Buttons
+  document.querySelector(".primary-btn").addEventListener("click", () => {
+    alert("Feature coming soon 🚀");
+  });
 
-  if (primaryBtn) {
-    primaryBtn.addEventListener("click", () => {
-      alert("Feature coming soon 🚀");
-    });
-  }
+  document.querySelector(".secondary-btn").addEventListener("click", () => {
+    window.open("https://github.com/dragonkidsnake13/UnknownCrypt", "_blank");
+  });
 
-  if (secondaryBtn) {
-    secondaryBtn.addEventListener("click", () => {
-      window.open("https://github.com/", "_blank");
-    });
-  }
+  // Smooth reveal animation
+  const elements = document.querySelectorAll(".hero-content, .card, .open-source, .about");
 
-  // Scroll animation (fade-in)
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = "translateY(0)";
+        entry.target.classList.add("show");
       }
     });
-  }, {
-    threshold: 0.1
-  });
+  }, { threshold: 0.15 });
 
-  document.querySelectorAll(".card, .hero-content, .open-source, .about").forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = "translateY(30px)";
-    el.style.transition = "all 0.6s ease";
+  elements.forEach(el => {
+    el.classList.add("hidden");
     observer.observe(el);
   });
 
